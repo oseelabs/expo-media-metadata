@@ -1,0 +1,17 @@
+{
+  "platforms": [
+    "apple",
+    "android",
+    "web"
+  ],
+  "apple": {
+    "modules": [
+      "ExpoMediaMetadataModule"
+    ]
+  },
+  "android": {
+    "modules": [
+      "expo.modules.oseelabs.media.metadata.ExpoMediaMetadataModule"
+    ]
+  }
+}
