@@ -1,12 +1,19 @@
 import { NativeModule, requireNativeModule } from 'expo';
 
-import { ExpoMediaMetadataModuleEvents } from './ExpoMediaMetadata.types';
-
-declare class ExpoMediaMetadataModule extends NativeModule<ExpoMediaMetadataModuleEvents> {
-  PI: number;
-  hello(): string;
-  setValueAsync(value: string): Promise<void>;
+declare class MediaMetadataModule extends NativeModule {
+    getMetadata(path: string): Promise<Map<string, string|null>>
 }
 
-// This call loads the native module object from the JSI.
-export default requireNativeModule<ExpoMediaMetadataModule>('ExpoMediaMetadata');
+const MediaMetadata = requireNativeModule<MediaMetadataModule>('MediaMetadata');
+
+export default class ExpoMediaMetadata {
+    static async getMetadata(path: string): Promise<Map<string, string|null> | unknown> {
+        try {
+            const metadata = await MediaMetadata.getMetadata(path);
+            return metadata;
+        } catch (error: unknown) {
+            console.error("Error retrieving metadata", error);
+            return error;
+        }
+    }
+}

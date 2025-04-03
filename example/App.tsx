@@ -1,39 +1,13 @@
 import { useEvent } from 'expo';
-import ExpoMediaMetadata, { ExpoMediaMetadataView } from 'expo-media-metadata';
+import ExpoMediaMetadata from 'expo-media-metadata';
 import { Button, SafeAreaView, ScrollView, Text, View } from 'react-native';
 
 export default function App() {
-  const onChangePayload = useEvent(ExpoMediaMetadata, 'onChange');
-
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.container}>
-        <Text style={styles.header}>Module API Example</Text>
-        <Group name="Constants">
-          <Text>{ExpoMediaMetadata.PI}</Text>
-        </Group>
-        <Group name="Functions">
-          <Text>{ExpoMediaMetadata.hello()}</Text>
-        </Group>
-        <Group name="Async functions">
-          <Button
-            title="Set value"
-            onPress={async () => {
-              await ExpoMediaMetadata.setValueAsync('Hello from JS!');
-            }}
-          />
-        </Group>
-        <Group name="Events">
-          <Text>{onChangePayload?.value}</Text>
-        </Group>
-        <Group name="Views">
-          <ExpoMediaMetadataView
-            url="https://www.example.com"
-            onLoad={({ nativeEvent: { url } }) => console.log(`Loaded: ${url}`)}
-            style={styles.view}
-          />
-        </Group>
-      </ScrollView>
+      <Text>
+        {JSON.stringify(ExpoMediaMetadata.getMetadata("file:///storage/emulated/0/Music/Loyal Flames - Keep Focus [Official Video 2023].mp3"))}
+      </Text>
     </SafeAreaView>
   );
 }
